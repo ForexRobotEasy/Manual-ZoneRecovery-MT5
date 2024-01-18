@@ -1,0 +1,55 @@
+mql5
+//+------------------------------------------------------------------+
+//|                               Manual ZoneRecovery MT5            |
+//|                        Developer's Site: forexroboteasy.com      |
+//|                         Development: Forex Robot Easy Team       |
+//+------------------------------------------------------------------+
+
+//--- Include necessary libraries and define global variables
+#include <Trade\Trade.mqh>
+
+input bool StopAtClose = true; // Stop trading after profit or loss
+bool isTradingEnabled = true; // Flag to enable/disable trading
+
+//--- Define the OnTick function to handle trading logic
+void OnTick()
+{
+   if (!isTradingEnabled)
+      return;
+
+   // Implement Zone Recovery strategies here
+
+   // Check if profit or loss condition is met
+   if (StopAtClose && (AccountProfit() >= 0 || AccountLoss() >= 0))
+   {
+      isTradingEnabled = false; // Disable trading
+      Print('Trading has been stopped at close');
+   }
+}
+
+//--- Define the OnDeinit function to handle cleanup
+void OnDeinit(const int reason)
+{
+   // Perform cleanup actions here, if necessary
+}
+
+//--- Define the OnStart function to initialize trading
+void OnStart()
+{
+   isTradingEnabled = true; // Enable trading
+}
+
+//--- Define the main program entry point
+void OnInit()
+{
+   // Perform any necessary initialization here
+   Print('Manual ZoneRecovery MT5 has been initialized');
+}
+
+//--- Define the main program entry point
+void OnDeinit(const int reason)
+{
+   // Perform any necessary cleanup here
+   Print('Manual ZoneRecovery MT5 has been deinitialized');
+}
+
